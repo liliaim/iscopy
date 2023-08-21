@@ -1,5 +1,5 @@
 console.log("inn")
-const map = "../assets/map-full.svg" // Or "./map-mobile.svg"
+const map = "<%=asset_path('map-full.svg')%>"
 const container = document.querySelector( '#map' )
 
 const res = await fetch( map )
