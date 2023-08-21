@@ -1,0 +1,17 @@
+<% content_for :js do %>
+  <%= javascript_import_module_tag "appmap" %>
+<% end %>
+<div class="contents row">
+  <%# <% @Records.each do |record| %> %>
+    <%# <div class="content_post" style="background-image: url(<%= record.image %>);"> %>
+      <%# <p><%= record.text %></p> %>
+      <%# <span class="name"> %>
+        <%# <%= record.name %> %>
+      <%# </span> %>
+    <%# </div> %>
+  <%# <% end %> %>
+  <div class="map" id="map"></div>
+
+
+  <%# <script src="./appmap.js"></script> %>
+</div>
