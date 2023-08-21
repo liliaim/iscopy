@@ -8,7 +8,7 @@ console.log(`res=${res}`)
 
 if ( res.ok ) {
   const svg = await res.text()
-  // console.log(`svg=${svg}`)
+  console.log(`svg=${svg}`)
 
   container.innerHTML = svg
   const prefs = document.querySelectorAll( '.geolonia-svg-map .prefecture' )
