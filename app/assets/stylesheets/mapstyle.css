@@ -8,6 +8,11 @@
   box-sizing: border-box;
   padding: 16px;
 }
+.gmap{
+  width: 400px;
+  height: 400px;
+
+}
 
 .geolonia-svg-map
 {
