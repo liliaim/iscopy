@@ -37,3 +37,6 @@
   top: 0;
   left: 0;
 }
+.prefecture:hover{
+  fill: red;
+}
