@@ -1,4 +1,3 @@
-//function showMap(){
   console.log("inn")
   const map = "<%=asset_path('map-full.svg')%>"
   const container = document.querySelector( '#map' )
@@ -28,16 +27,19 @@
         event.currentTarget.style.fill = ""
       } )
 
-      // マウスクリック時のイベント
-      pref.addEventListener( 'click', ( event ) => {
-        console.log(`location.host=${location.host}`)
-        console.log(`location.pathname=${location.pathname}`)
+// 全ての都道府県のSVG要素を取得
+  const prefectureElements = document.querySelectorAll(".prefecture");
 
-        // location.href = `https://example.com/${event.currentTarget.dataset.code}` // 例（大阪）: https://example.com/27
-        //location.href = `http://${location.host}/show/${event.currentTarget.dataset.code}` // 例（大阪）: https://example.com/27
-        location.href = `http://${location.host}/records/show/` // 例（大阪）: https://example.com/27
-      } )
+  // 各都道府県のクリックイベントを設定
+  prefectureElements.forEach(prefecture => {
+    prefecture.addEventListener("click", function() {
+      const prefectureCode = this.getAttribute("data-code");
+      
+      // 対応するplan_pathにリダイレクト
+      window.location.href = `/plans/${prefectureCode}`;
+    });
+  });
+
+   
     } )
   }
-//}
-  //window.addEventListener('turbo:load', showMap)
