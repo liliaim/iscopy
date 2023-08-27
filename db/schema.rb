@@ -29,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_27_011434) do
     t.string "text", null: false
     t.integer "prefecture_id", null: false
     t.string "city"
-    t.date "start_date", null: false
-    t.date "end_date", null: false
+    t.date "start_date"
+    t.date "end_date"
     t.bigint "plan_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false

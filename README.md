@@ -65,8 +65,8 @@ Things you may want to cover:
 | text            | text       | null: false                    |
 | prefecture_id   | integer    | null: false                    |
 | city            | string     |                                |
-| start_date      | date       | null: false                    |
-| end_date        | date       | null: false                    |
+| start_date      | date       |                                |
+| end_date        | date       |                                |
 | plan            | references | foreign_key: true              |
 | user            | references | null: false, foreign_key: true |
 
