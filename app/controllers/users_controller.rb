@@ -6,6 +6,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @plans = @user.plans
     @records = @user.records
+    pref = []
+    @plans.each do |plan|
+      unless pref.include?(plan.prefecture_id)
+       pref << plan.prefecture_id
+      end
+    end
+
+    @pref = pref.sort
+# binding.pry
   end
 
   private

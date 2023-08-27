@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_26_071002) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_27_011434) do
   create_table "plans", charset: "utf8", force: :cascade do |t|
     t.string "destination", null: false
     t.text "text", null: false
@@ -25,11 +25,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_071002) do
   end
 
   create_table "records", charset: "utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "text"
-    t.text "image"
+    t.string "destination", null: false
+    t.string "text", null: false
+    t.integer "prefecture_id", null: false
+    t.string "city"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.bigint "plan_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_records_on_plan_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -46,4 +53,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_26_071002) do
   end
 
   add_foreign_key "plans", "users"
+  add_foreign_key "records", "plans"
+  add_foreign_key "records", "users"
 end
