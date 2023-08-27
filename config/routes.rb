@@ -4,6 +4,6 @@ Rails.application.routes.draw do
 
   resources :plans
   resources :users, only: :show
-  resources :records, only: [:index,:show]
+  resources :records, only: [:new,:create]
 
 end

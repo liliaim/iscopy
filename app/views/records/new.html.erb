@@ -2,25 +2,24 @@
 <section class="bg-light py-5">
     <div class="container px-5 my-5 px-5">
         <div class="text-center mb-5">
-            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-calendar-days"></i></div>
-            <h2 class="fw-bolder">新しい計画</h2>
-            <p class="lead mb-0">行きたい場所や旅の目的を登録しよう</p>
+            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-book"></i></div>
+            <h2 class="fw-bolder">旅の記録</h2>
+            <p class="lead mb-0">行った場所や旅の思い出を登録しよう</p>
         </div>
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
-                <!-- This form is pre-integrated with SB Forms.-->
-                <%= form_with model: @plan, local: true do |f| %>
+                <%= form_with model: @record, local: true do |f| %>
                     <%= render 'shared/error_messages', model: f.object %>
                     <!-- destination input-->
                     <div class="form-floating mb-3">
                         <%= f.text_field :destination, class:"form-control", id:"destination", type:"text", placeholder:"目的地（必須）" %>
-                        <label for="destination">目的地（必須）</label>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">目的地を入力してください</div>
+                        <label for="destination">旅先（必須）</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">旅先を入力してください</div>
                     </div>
                     <!-- text input-->
                     <div class="form-floating mb-3">
                         <%= f.text_field :text, class:"form-control", id:"text", type:"text", placeholder:"北海道でスカイダイビング" , style:"height: 10rem"%>
-                        <label for="text">行きたい場所や旅の目的（必須）</label>
+                        <label for="text">行った場所や旅の思い出（必須）</label>
                         <div class="invalid-feedback" data-sb-feedback="email:required">テキストを入力してください</div>
                     </div>
                     <!-- prefecture_id input-->

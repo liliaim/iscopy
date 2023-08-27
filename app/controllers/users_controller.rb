@@ -12,9 +12,16 @@ class UsersController < ApplicationController
        pref << plan.prefecture_id
       end
     end
-
     @pref = pref.sort
 # binding.pry
+    pref_rec = []
+    @records.each do |record|
+      unless pref_rec.include?(record.prefecture_id)
+        pref_rec << record.prefecture_id
+      end
+    end
+    @pref_rec = pref_rec.sort
+
   end
 
   private
