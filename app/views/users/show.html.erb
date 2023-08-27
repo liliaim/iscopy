@@ -6,9 +6,7 @@
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
                 <div class="col-lg-7">
-                    <%# <%= render "map-full"%> %>
-                    <%# <input value=@pref name='pref_num' type="hidden"> %>
-                    <%# <div class="map" id="map"></div> %>
+                    <%# svg日本地図 %>
                     <div class="map" id="map" data-pref-codes="<%= @pref.to_json.html_safe %>"></div>
                 </div>
                 <div class="col-lg-5">
@@ -36,7 +34,6 @@
                                 <%# textは先頭の140文字くらいを表示 %>
                             </div>
                             <div class="card-footer"><%=link_to "More Info", plan_path(plan.id), class:"btn btn-primary btn-sm"%></div>
-                            <%# <a class="btn btn-primary btn-sm" href="#!">More Info</a></div> %>
                         </div>
                     </div>
                 <%end%>

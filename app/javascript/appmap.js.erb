@@ -9,81 +9,33 @@
       container.innerHTML = svg;
 
       const prefectureElements = document.querySelectorAll(".prefecture");
-
-      <%# const prefCodes =  <%= raw @pref.to_json%>; // ユーザーに関連する都道府県コードの配列 %> %> %>
-      const prefCodes = JSON.parse(container.getAttribute("data-pref-codes"));
-      <%# const prefCodes =  [1,42]; // ユーザーに関連する都道府県コードの配列 %> 
-  <%# const prefCodes = document.querySelectorAll('pref_num'); %>
-console.log(prefCodes)
+      const prefCodes = JSON.parse(container.getAttribute("data-pref-codes")); //計画がある都道府県のprefecture_id
 
       prefectureElements.forEach(prefecture => {
-        const svgDataCode = parseInt(prefecture.getAttribute("data-code"));
-console.log(svgDataCode)
+        const svgDataCode = parseInt(prefecture.getAttribute("data-code")); //各都道府県のdata-code
+        let prefColor = ""
         if (prefCodes.includes(svgDataCode)) {
-console.log(svgDataCode)
-        <%# if (prefCodes ==svgDataCode) { %>
-          <%# prefecture.setAttribute("fill", "#FF0000"); // ユーザーに関連する都道府県を赤色で塗りつぶす %>
-prefecture.style.fill = "#FF0000";
+          prefecture.style.fill = "#ade3f8"; // 計画がある都道府県を青色で塗りつぶす
+          prefColor = "#ade3f8";
         } else {
-          prefecture.setAttribute("fill", "#EEEEEE"); // その他の都道府県はグレー色で塗りつぶす
+          prefecture.setAttribute("fill", "#f0f0f0"); // その他の都道府県はグレー色で塗りつぶす
+          prefColor = "#f0f0f0";
         }
+
+        // マウスオーバーで色を変える
+        prefecture.addEventListener( 'mouseover', ( event ) => {
+          event.currentTarget.style.fill = "#00ff00"
+        } )
+        // マウスが離れたら色をもとに戻す
+        prefecture.addEventListener( 'mouseleave', ( event ) => {
+          event.currentTarget.style.fill = prefColor
+        });
+
+        prefecture.addEventListener("click", function() {      
+          // 対応するplan_pathにリダイレクト
+          window.location.href = `/plans/${svgDataCode}`;
+        });
       });
     }
   });
-
-    <%# // 各都道府県の処理
-    prefectureElements.forEach(prefecture => {
-      const svgDataCode = prefecture.getAttribute("data-code");
-      console.log(`svgDataCode=${svgDataCode}`)
-
-      // RailsコントローラーにAjaxリクエストを送信してplanデータを取得
-      fetch(`/plans/get_plan_by_prefecture_id?prefecture_id=${svgDataCode}`)
-        .then(response => response.json())
-        .then(data => {
-         
-          const plan = data.plan; // 取得したplanデータ %>
-      <%# console.log(`plan=${plan}`)
-
-          // SVG地図のdata-code属性と比較して色を変更
-          if (plan.prefecture_id === parseInt(svgDataCode)) {
-            // 一致する場合は色を変更
-            prefecture.setAttribute("fill", "#FF0000"); // 例: 赤色
-          } else {
-            // 一致しない場合は元の色に戻す
-            prefecture.setAttribute("fill", "#EEEEEE"); // 例: グレー色
-          }
-        }); %>
-    <%# }); %>
-
-
-
-    <%# const prefs = document.querySelectorAll( '.geolonia-svg-map .prefecture' )
-
-    prefs.forEach( ( pref ) => {
-      // マウスオーバーで色を変える
-      pref.addEventListener( 'mouseover', ( event ) => {
-        event.currentTarget.style.fill = "#00ff00"
-      } )
-
-      // マウスが離れたら色をもとに戻す
-      pref.addEventListener( 'mouseleave', ( event ) => {
-        event.currentTarget.style.fill = ""
-      } ) %>
-
-<%# // 全ての都道府県のSVG要素を取得
-  const prefectureElements = document.querySelectorAll(".prefecture");
-
-  // 各都道府県のクリックイベントを設定
-  prefectureElements.forEach(prefecture => {
-    prefecture.addEventListener("click", function() {
-      const prefectureCode = this.getAttribute("data-code");
-      
-      // 対応するplan_pathにリダイレクト
-      window.location.href = `/plans/${prefectureCode}`;
-    });
-  });
-
-   
-    } ) %>
-  <%# } %>
 
