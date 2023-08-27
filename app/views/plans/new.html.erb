@@ -1,0 +1,72 @@
+<!-- Contact section-->
+<section class="bg-light py-5">
+    <div class="container px-5 my-5 px-5">
+        <div class="text-center mb-5">
+            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-calendar-days"></i></div>
+            <h2 class="fw-bolder">新しい計画</h2>
+            <p class="lead mb-0">行きたい場所や旅の目的を登録しよう</p>
+        </div>
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6">
+                <!-- This form is pre-integrated with SB Forms.-->
+                <%= form_with model: @plan, local: true do |f| %>
+                    <%= render 'shared/error_messages', model: f.object %>
+                    <!-- Name input-->
+                    <div class="form-floating mb-3">
+                        <%= f.text_field :destination, class:"form-control", id:"destination", type:"text", placeholder:"目的地（必須）" %>
+                        <label for="destination">目的地（必須）</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">目的地を入力してください</div>
+                    </div>
+                    <!-- Email address input-->
+                    <div class="form-floating mb-3">
+                        <%= f.text_field :text, class:"form-control", id:"text", type:"text", placeholder:"北海道でスカイダイビング" , style:"height: 10rem"%>
+                        <label for="text">行きたい場所や旅の目的（必須）</label>
+                        <div class="invalid-feedback" data-sb-feedback="email:required">テキストを入力してください</div>
+                    </div>
+                    <!-- Phone number input-->
+                    <div class="form-floating mb-3">
+                        <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"form-control"}) %>
+                        <label for="prefecture_id">都道府県（必須）</label>
+                        <div class="invalid-feedback" data-sb-feedback="prefecture_id:required">都道府県を選択してください</div>
+                    </div>
+                    <!-- Message input-->
+                    <div class="form-floating mb-3">
+                        <%= f.text_field :city, class:"form-control", id:"city", type:"text", placeholder:"市町村..." %>
+                        <label for="city">市町村</label>
+                    </div>
+                    <!-- Message input-->
+                    <div class="form-floating mb-3">
+                        <%= f.text_field :start_date, class:"form-control", id:"start_date", type:"date", placeholder:"2023/10/1" %>
+                        <label for="start_date">開始日</label>
+                        <div class="invalid-feedback" data-sb-feedback="date:date">Date is not valid.</div>
+                    </div>
+                    <!-- Message input-->
+                    <div class="form-floating mb-3">
+                        <%= f.text_field :end_date, class:"form-control", id:"end_date", type:"date", placeholder:"2023/10/7" %>
+                        <label for="end_date">終了日</label>
+                        <div class="invalid-feedback" data-sb-feedback="date:date">Date is not valid.</div>
+                    </div>
+                    <!-- Submit success message-->
+                    <!---->
+                    <!-- This is what your users will see when the form-->
+                    <!-- has successfully submitted-->
+                    <div class="d-none" id="submitSuccessMessage">
+                        <div class="text-center mb-3">
+                            <div class="fw-bolder">Form submission successful!</div>
+                        </div>
+                    </div>
+                    <!-- Submit error message-->
+                    <!---->
+                    <!-- This is what your users will see when there is-->
+                    <!-- an error submitting the form-->
+                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                    <!-- Submit Button-->
+                    <div class="d-grid">
+                            <%= f.submit "Submit", class:"btn btn-primary btn-lg",data: {turbo:false}%>
+                    </div>
+              <% end %>
+            </div>
+        </div>
+        
+    </div>
+</section>
