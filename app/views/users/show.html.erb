@@ -7,13 +7,13 @@
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
                 <div class="col-lg-7">
                     <%# svg日本地図 %>
-                    <div class="map" id="map" data-pref-codes="<%= @pref.to_json.html_safe %>"></div>
+                    <div class="map" id="map" data-pref-codes="<%= @pref.to_json.html_safe %>" data-rec-codes="<%= @pref_rec.to_json.html_safe %>"></div>
                 </div>
                 <div class="col-lg-5">
                     <h1 class="font-weight-light"><%= @nickname %>さんの旅 マイページ</h1>
                     <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
                     <%= link_to "計画を登録する!", new_plan_path, class:"btn btn-primary" %>
-                    <%= link_to "計画のない旅を記録する!", "new_record_path", class:"btn btn-primary" %>
+                    <%= link_to "計画のない旅を記録する!", new_record_path, class:"btn btn-primary" %>
                 </div>
             </div>
             <!-- Call to Action-->
@@ -41,19 +41,19 @@
                 <%# 計画がない時にダミーカードを表示したい %>
 
                 <h3 class="font-weight-light">旅の記録</h3>
-                <%# <% @records.each do |record|%> %>
+                <% @records.each do |record| %>
                     <div class="col-md-4 mb-5">
                         <div class="card h-100">
                             <div class="card-body">
-                                <%# <h2 class="card-title"><%= record.prefecture.name%></h2> %>
-                                <%# <h4 class="card-title"><%= record.destination%></h4> %>
-                                <%# <p class="card-text"><%= record.text%></p> %>
+                                <h2 class="card-title"><%= record.prefecture.name %></h2>
+                                <h4 class="card-title"><%= record.destination %></h4>
+                                <p class="card-text"><%= record.text %></p>
                                 <%# textは先頭の140文字くらいを表示 %>
                             </div>
                             <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
                         </div>
                     </div>
-                <%# <%end%> %>
+                <%end %>
                 <%# 3件くらい表示してmoreとかview allにしたい %>
                 <%# 記録がない時にダミーカードを表示したい %>
 

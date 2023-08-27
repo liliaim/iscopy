@@ -10,13 +10,20 @@
 
       const prefectureElements = document.querySelectorAll(".prefecture");
       const prefCodes = JSON.parse(container.getAttribute("data-pref-codes")); //計画がある都道府県のprefecture_id
+      const prefRecCodes = JSON.parse(container.getAttribute("data-rec-codes")); //計画がある都道府県のprefecture_id
 
       prefectureElements.forEach(prefecture => {
         const svgDataCode = parseInt(prefecture.getAttribute("data-code")); //各都道府県のdata-code
         let prefColor = ""
-        if (prefCodes.includes(svgDataCode)) {
-          prefecture.style.fill = "#ade3f8"; // 計画がある都道府県を青色で塗りつぶす
-          prefColor = "#ade3f8";
+        if ((prefCodes.includes(svgDataCode))&&(prefRecCodes.includes(svgDataCode))) {
+          prefecture.style.fill = "#00ffff"; // 計画と記録の両方ある都道府県を水色で塗りつぶす
+          prefColor = "#00ffff";
+        }else if ((prefCodes.includes(svgDataCode)) && !(prefRecCodes.includes(svgDataCode))) {
+           prefecture.style.fill = "#1e90ff"; // 計画がある都道府県を青色で塗りつぶす
+          prefColor = "#1e90ff";
+        }else if (!(prefCodes.includes(svgDataCode)) && (prefRecCodes.includes(svgDataCode))) {
+          prefecture.style.fill = "#00fa9a"; // 記録がある都道府県を緑色で塗りつぶす
+          prefColor = "#00fa9a";
         } else {
           prefecture.setAttribute("fill", "#f0f0f0"); // その他の都道府県はグレー色で塗りつぶす
           prefColor = "#f0f0f0";
@@ -32,7 +39,7 @@
         });
 
         prefecture.addEventListener("click", function() {      
-          // 対応するplan_pathにリダイレクト
+          // 対応する都道府県のplan_pathにリダイレクト
           window.location.href = `/plans/${svgDataCode}`;
         });
       });
