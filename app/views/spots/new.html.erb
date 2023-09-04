@@ -1,0 +1,120 @@
+<% content_for :js do %>
+  <%# <%= javascript_import_module_tag "gmap" %> %>
+<% end %>
+<%# <div class="row gx-lg-5">
+    <div class="col-lg-6 col-xxl-3 mb-3">
+        <div class="card h-80"> %>
+            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                <h2 class="fs-4 fw-bold"><%=@prefecture.name%>の新しいスポットを登録<i class="fa-regular fa-bookmark"></i></h2>
+                <%= form_with model: @spot, local: true do |f| %>
+                <%= render 'shared/error_messages', model: f.object%>
+                    <!-- icon_id input-->
+                    <div class="form-floating mb-1">
+                        <%= f.collection_select(:icon_id, Icon.all, :id, :name, {}, {class:"form-control"}) %>
+                        <label for="icon_id">種類（必須）</label>
+                    </div>
+                    <!-- spot_name input-->
+                    <div class="form-floating mb-1">
+                        <%= f.text_field :spot_name, class:"form-control", id:"spot_name", type:"text", placeholder:"別府温泉" %>
+                        <label for="spot_name">スポット名（必須）</label>
+                    </div>
+                    <!-- Information input-->
+                    <div class="form-floating mb-1">
+                        <%= f.text_field :information, class:"form-control", id:"information", type:"text", placeholder:"有名な温泉" , style:"height: 10rem"%>
+                        <label for="information">情報</label>
+                    </div>
+                    <!-- Prefecture hidden-->
+                    <%= f.hidden_field :prefecture_id, value: @prefecture.id, id:"prefecture_id" %>
+                    <!-- Submit Button-->
+                    <div class="d-grid">
+                        <%= f.submit "Submit", class:"btn btn-primary btn-lg" %>
+                    </div>
+        <%# </div>
+    </div>
+</div> %>
+
+    <%= f.label :latitude,"緯度" %>
+    <%= f.text_field :latitude,:value =>"緯度", id: :latitude %>
+    <%= f.label :longitude,"経度" %>
+    <%= f.text_field :longitude,:value =>"経度", id: :longitude %>
+    <%= f.submit %>
+<h2>gmap</h2>
+
+
+                    <!-- Address input-->
+                    <div class="form-floating mb-1">
+                        <%= f.text_field :address, class:"form-control", id:"address", type:"text", placeholder:"住所" , style:"height: 10rem"%>
+                        <label for="address">住所</label>
+                    </div>
+            </div>
+<% end %>
+
+<input type="button" value="検索" onclick="codeAddress()">
+<p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
+
+<div id='gmap'></div>
+
+<style>
+#gmap {
+  height: 600px;
+  width: 600px;
+}
+</style>
+<script>
+let map
+let marker
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('gmap'), {
+    center:  {lat: <%= @prefecture.latitude %>, lng:<%= @prefecture.longitude %>},  //各都道府県中心点 
+    zoom: 6,
+  });
+
+  // marker = new google.maps.Marker({
+  //   position:  {lat: 40.7828, lng:-73.9653},
+  //   map: map
+  // });
+}
+//検索後のマップ作成
+let geocoder
+let aft
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+        //マーカーが複数できないようにする
+        if (aft == true){
+            marker.setMap(null);
+        }
+
+        //新しくマーカーを作成する
+        map.setCenter(results[0].geometry.location);
+            marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            draggable: true	// ドラッグ可能にする
+        });
+
+        //二度目以降か判断
+        aft = true
+
+        //検索した時に緯度経度を入力する
+        document.getElementById('latitude').value = results[0].geometry.location.lat();
+        document.getElementById('longitude').value = results[0].geometry.location.lng();
+
+        // マーカーのドロップ（ドラッグ終了）時のイベント
+        google.maps.event.addListener( marker, 'dragend', function(ev){
+            // イベントの引数evの、プロパティ.latLngが緯度経度
+            document.getElementById('latitude').value = ev.latLng.lat();
+            document.getElementById('longitude').value = ev.latLng.lng();
+        });
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });   
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_MAPS_API_KEY']%>&callback=initMap" async defer></script>
