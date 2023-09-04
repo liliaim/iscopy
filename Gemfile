@@ -76,3 +76,9 @@ group :production do
   gem 'pg'
 end
 gem 'active_hash'
+
+# gem 'google-api-client', '~> 0.53.0'
+# gem 'google-apis-calendar_v3', '~> 0.5.0'
+# gem 'googleauth', '~> 1.7', require: 'googleauth/stores/file_token_store'
+gem 'gmaps4rails'
+gem 'geocoder'

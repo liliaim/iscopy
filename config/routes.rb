@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :plans
   resources :users, only: :show
   resources :records, only: [:new,:create]
+  resources :spots
 
+  # get '/google_calendar/callback', to: 'users#callback'
 end

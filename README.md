@@ -84,6 +84,9 @@ Things you may want to cover:
 | spot_name     | string     | null: false                    |
 | information   | text       |                                |
 | prefecture_id | integer    | null: false                    |
+| address       | string     |                                |
+| latitude      | float      |                                |
+| longitude     | float      |                                |
 | user          | references | null: false, foreign_key: true |
 
 ### Association

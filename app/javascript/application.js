@@ -2,5 +2,5 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "appmap"
-import "gmaps"
+import "gmap"
 import "scripts"
