@@ -20,42 +20,86 @@
             <div class="card text-white bg-secondary my-5 py-4 text-center">
                 <div class="card-body"><p class="text-white m-0">計画や記録を登録するには地図をクリック！</p></div>
             </div>
-            <!-- Content Row-->
-            <div class="row gx-4 gx-lg-5">
+ 
 
-                <h3 class="font-weight-light">計画中</h3>
-                <% @plans.each do |plan|%>
-                    <div class="col-md-4 mb-5">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h2 class="card-title"><%= plan.prefecture.name%></h2>
-                                <h4 class="card-title"><%= plan.destination%></h4>
-                                <p class="card-text"><%= plan.text%></p>
-                                <%# textは先頭の140文字くらいを表示 %>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                計画一覧
                             </div>
-                            <div class="card-footer"><%=link_to "More Info", plan_path(plan.id), class:"btn btn-primary btn-sm"%></div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>アイコン</th>
+                                            <th>スポット</th>
+                                            <th>所在地</th>
+                                            <th>住所</th>
+                                            <th>写真</th>
+                                            <th>編集</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><i class="fa-solid fa-burger"></i></td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                        </tr> 
+                                        <tr>
+                                            <td><i class="fa-solid fa-camera"></i></td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td><i class="fa-solid fa-pen-to-square"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="add_plan">
+                                <i class="fa-regular fa-square-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                旅の記録
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="add_record">
+                                <i class="fa-regular fa-square-plus"></i>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                <%end%>
-                <%# 3件くらい表示してmoreとかview allにしたい %>
-                <%# 計画がない時にダミーカードを表示したい %>
-
-                <h3 class="font-weight-light">旅の記録</h3>
-                <% @records.each do |record| %>
-                    <div class="col-md-4 mb-5">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h2 class="card-title"><%= record.prefecture.name %></h2>
-                                <h4 class="card-title"><%= record.destination %></h4>
-                                <p class="card-text"><%= record.text %></p>
-                                <%# textは先頭の140文字くらいを表示 %>
-                            </div>
-                            <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
-                        </div>
-                    </div>
-                <%end %>
-                <%# 3件くらい表示してmoreとかview allにしたい %>
-                <%# 記録がない時にダミーカードを表示したい %>
-
             </div>
         </div>
+<%# <div>
+  <%= button_to '認証する', @authorization_url %>
+<%# </div> %> 

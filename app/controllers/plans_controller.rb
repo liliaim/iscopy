@@ -21,10 +21,12 @@ class PlansController < ApplicationController
   def show
     @prefecture = Prefecture.find(params[:id])
     # @spot = Spot.new
-    # @plan = Plan.find(params[:id])
-    @plans = Plan.where(user_id: current_user.id, prefecture_id: @prefecture.id)
-    # @spots = Spot.where(user_id: @plan.user_id, prefecture_id: @plan.prefecture_id)
-   
+  # @plan = Plan.find(params[:id])
+  @records = Record.where(user_id: current_user.id, prefecture_id: @prefecture.id)
+  @plans = Plan.where(user_id: current_user.id, prefecture_id: @prefecture.id)
+  @spots = Spot.where(user_id: current_user.id, prefecture_id: @prefecture.id)
+      #  binding.pry
+
   end
 
   private
