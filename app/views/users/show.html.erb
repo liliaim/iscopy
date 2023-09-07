@@ -9,90 +9,123 @@
                     <%# svg日本地図 %>
                     <div class="map" id="map" data-pref-codes="<%= @pref.to_json.html_safe %>" data-rec-codes="<%= @pref_rec.to_json.html_safe %>"></div>
                 </div>
-                <div class="col-lg-5">
-                    <h1 class="font-weight-light"><%= @nickname %>さんの旅 マイページ</h1>
-                    <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-                    <%= link_to "計画を登録する!", new_plan_path, class:"btn btn-primary" %>
-                    <%= link_to "計画のない旅を記録する!", new_record_path, class:"btn btn-primary" %>
-                </div>
-            </div>
-            <!-- Call to Action-->
-            <div class="card text-white bg-secondary my-5 py-4 text-center">
-                <div class="card-body"><p class="text-white m-0">計画や記録を登録するには地図をクリック！</p></div>
-            </div>
- 
 
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <%= @nickname %> さんの旅
+                    </h1>
+                    <ul>
+                    <li><p>日本地図で【これまでにあなたが訪れた場所】・【これから行きたい場所】・【行ったことあるけどもう一度行きたい場所】を確認できます</p>
+                    <li><p>都道府県をクリックすると各都道府県のページへジャンプします</p>
+                    <li><p>スポット登録は各都道府県のページから</p>
+                    <li><p>47都道府県制覇まで、あと〇〇県！！</p>
+                    </ul>
+                    <div class="my-2"><%= link_to "計画を登録する", new_plan_path, class:"btn btn-primary" %></div>
+                    <div class="my-2"><%= link_to "旅を記録する", new_record_path, class:"btn btn-primary" %></div>
+                    <div class="my-2"><%= link_to "全国の登録スポット", "", class:"btn btn-secondary" %></div>
+                    <div class="my-2"><%= link_to "ユーザー情報変更", "", class:"btn btn-secondary" %></div>
+                </div>
+                <!-- Call to Action-->
+                <div class="card text-white bg-secondary my-5 py-1 text-center">
+                    <div class="card-body d-flex justify-content-lg-between">
+                        <p class="text-white m-0 fs-1">
+                            <div>
+                                <div class="feature bg-iscopy-b bg-gradient text-white rounded-5 mb-3">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                </div>
+                                <div>旅を計画中</div>
+                            </div>
+                            <div>
+                                <div class="feature bg-iscopy-c bg-gradient text-white rounded-5 mb-3">
+                                    <i class="fa-solid fa-book"></i>
+                                </div>
+                                <div>行った！</div>
+                            </div>
+                            <div>
+                                <div class="feature bg-iscopy-a bg-gradient text-white rounded-5 mb-3">
+                                    <i class="fa-solid fa-bookmark"></i>
+                                </div>
+                                <div>行ったことあるけど、もう一回行きたい！<br>（計画も記録もある状態）</div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                計画一覧
+                            <div class="card-header text-center">
+                                <div class=" bg-iscopy-b text-white rounded-5">
+                                    <i class="fa-solid fa-calendar-days">    計画一覧</i>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="border-secodary">
                                     <thead>
                                         <tr>
-                                            <th>アイコン</th>
-                                            <th>スポット</th>
-                                            <th>所在地</th>
-                                            <th>住所</th>
-                                            <th>写真</th>
-                                            <th>編集</th>
+                                            <th>都道府県</th>
+                                            <th>目的地</th>
+                                            <th>内容</th>
+                                            <th>開始日</th>
+                                            <th>終了日</th>
+                                            <th>編集・削除</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><i class="fa-solid fa-burger"></i></td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                        </tr> 
-                                        <tr>
-                                            <td><i class="fa-solid fa-camera"></i></td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                        </tr>
+                                        <% @plans.each do |plan|%>
+                                            <tr>
+                                                <td><%=plan.prefecture.name%></td>
+                                                <td><%=plan.destination%></td>
+                                                <td><%=plan.text%></td>
+                                                <td><%=plan.start_date%></td>
+                                                <td><%=plan.end_date%></td>
+                                                <td><a href="<%=edit_plan_path%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
+                                            </tr> 
+                                        <%end%>
                                     </tbody>
                                 </table>
                                 <div class="add_plan">
-                                <i class="fa-regular fa-square-plus"></i>
+                                   <a href="<%=new_plan_path%>">
+                                    <i class="fa-regular fa-square-plus"></i></a>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                旅の記録
+                            <div class="card-header text-center">
+                                <div class=" bg-iscopy-c text-white rounded-5">
+                                    <i class="fa-solid fa-book">    旅の記録</i>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="border-secodary">
                                     <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
+                                            <tr>
+                                                <th>都道府県</th>
+                                                <th>旅先</th>
+                                                <th>内容</th>
+                                                <th>開始日</th>
+                                                <th>終了日</th>
+                                                <th>編集・削除</th>
+                                            </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
+                                        <% @records.each do |record|%>
+                                            <tr>
+                                                <td><%=record.prefecture.name%></td>
+                                                <td><%=record.destination%></td>
+                                                <td><%=record.text%></td>
+                                                <td><%=record.start_date%></td>
+                                                <td><%=record.end_date%></td>
+                                                <td><a href="<%=edit_record_path%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
+                                            </tr>
+                                        <%end%>
                                     </tbody>
                                 </table>
                                 <div class="add_record">
-                                <i class="fa-regular fa-square-plus"></i>
+                                   <a href="<%=new_record_path%>">
+                                    <i class="fa-regular fa-square-plus"></i></a>
                                 </div>
 
                             </div>

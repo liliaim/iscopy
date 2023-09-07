@@ -16,22 +16,22 @@
         const svgDataCode = parseInt(prefecture.getAttribute("data-code")); //各都道府県のdata-code
         let prefColor = ""
         if ((prefCodes.includes(svgDataCode))&&(prefRecCodes.includes(svgDataCode))) {
-          prefecture.style.fill = "#00ffff"; // 計画と記録の両方ある都道府県を水色で塗りつぶす
-          prefColor = "#00ffff";
+          prefecture.style.fill = "#E8C500"; // 計画と記録の両方ある都道府県を色で塗りつぶす
+          prefColor = "#E8C500";
         }else if ((prefCodes.includes(svgDataCode)) && !(prefRecCodes.includes(svgDataCode))) {
-           prefecture.style.fill = "#1e90ff"; // 計画がある都道府県を青色で塗りつぶす
-          prefColor = "#1e90ff";
+           prefecture.style.fill = "#8ABF1F"; // 計画がある都道府県を色で塗りつぶす
+          prefColor = "#8ABF1F";
         }else if (!(prefCodes.includes(svgDataCode)) && (prefRecCodes.includes(svgDataCode))) {
-          prefecture.style.fill = "#00fa9a"; // 記録がある都道府県を緑色で塗りつぶす
-          prefColor = "#00fa9a";
+          prefecture.style.fill = "#70c7f2"; // 記録がある都道府県を色で塗りつぶす
+          prefColor = "#70c7f2";
         } else {
-          prefecture.setAttribute("fill", "#f0f0f0"); // その他の都道府県はグレー色で塗りつぶす
+          prefecture.setAttribute("fill", "#f0f0f0"); // その他の都道府県は色で塗りつぶす
           prefColor = "#f0f0f0";
         }
 
         // マウスオーバーで色を変える
         prefecture.addEventListener( 'mouseover', ( event ) => {
-          event.currentTarget.style.fill = "#ffac30"
+          event.currentTarget.style.fill = "#d34e3f"
         } )
         // マウスが離れたら色をもとに戻す
         prefecture.addEventListener( 'mouseleave', ( event ) => {
