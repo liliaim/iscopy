@@ -6,16 +6,10 @@
     <div class="container px-lg-5">
         <div class="p-4 p-lg-5 bg-light rounded-3 text-left">
             <div class="m-4 m-lg-5">
-                <h1 class="display-6 fw-bold"><%= @prefecture.name%>のページ</h1>
-                <%# <p class="fs-4"><%= @plan.start_date%>～
-                <%# <%= @plan.end_date</p> %> %> %>
-                <%# <h5 class="display-8 fw-bold">目的地：<%= @plan.destination%></h5> %>
-                <%# <p class="fs-8">行きたい場所や旅の目的：<%= @plan.text%></p> %>
-                <i class="fa-solid fa-pen-to-square"></i>
-                <a class="btn btn-primary btn-lg" href="#!">編集する</a>
-                <a class="btn btn-secondary btn-lg" href="#!">削除</a>
-                <%= link_to "spot", new_spot_path(@prefecture.id), class:"btn btn-primary",data:{turbo:false} %>
+                <h1 class="display-6 fw-bold my-2"><%= @prefecture.name%></h1>
 
+                <%= link_to "新しいスポットを登録する", new_spot_path(@prefecture.id), class:"btn btn-primary",data:{turbo:false} %>
+                <a href="#spot" class="btn btn-outline-primary"><%= @prefecture.name%>のスポット一覧</a>
             </div>
             <div class="m-4 m-lg-5">
                 <div id='gmap'></div>
@@ -24,17 +18,93 @@
 </header>
 <div id="layoutSidenav_content">
     <main>
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4 mx-4">
+                    <div class="card-header">
+                        <div class="feature-iscopy bg-iscopy-b text-white rounded-5">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>    計画一覧＜<%= @prefecture.name%>＞
+                    </div>
+                <div class="card-body">
+                    <table class="border-secodary">
+                        <thead>
+                            <tr>
+                                <th>都道府県</th>
+                                <th>目的地</th>
+                                <th>内容</th>
+                                <th>開始日</th>
+                                <th>終了日</th>
+                                <th>編集・削除</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @plans.each do |plan|%>
+                                <tr>
+                                    <td><%=plan.prefecture.name%></td>
+                                    <td><%=plan.destination%></td>
+                                    <td><%=plan.text%></td>
+                                    <td><%=plan.start_date%></td>
+                                    <td><%=plan.end_date%></td>
+                                    <td><a href="<%=edit_plan_path%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
+                                </tr> 
+                            <%end%>
+                        </tbody>
+                    </table>
+                    <div class="add_plan">
+                        <a href="<%=new_plan_path%>">
+                        <i class="fa-regular fa-square-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4 mx-4">
+                <div class="card-header">
+                        <div class="feature-iscopy bg-iscopy-c text-white rounded-5">
+                        <i class="fa-solid fa-book"></i>
+                    </div>    旅の記録＜<%= @prefecture.name%>＞
+                </div>
+                <div class="card-body">
+                    <table class="border-secodary">
+                        <thead>
+                                <tr>
+                                    <th>都道府県</th>
+                                    <th>旅先</th>
+                                    <th>内容</th>
+                                    <th>開始日</th>
+                                    <th>終了日</th>
+                                    <th>編集・削除</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            <% @records.each do |record|%>
+                                <tr>
+                                    <td><%=record.prefecture.name%></td>
+                                    <td><%=record.destination%></td>
+                                    <td><%=record.text%></td>
+                                    <td><%=record.start_date%></td>
+                                    <td><%=record.end_date%></td>
+                                    <td><a href="<%=edit_record_path%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
+                                </tr>
+                            <%end%>
+                        </tbody>
+                    </table>
+                    <div class="add_record">
+                        <a href="<%=new_record_path%>">
+                        <i class="fa-regular fa-square-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Dashboard</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
+            <h3 class="mt-4" id="spot">スポット一覧</h3>
             <div class="row">
                 <div class="col-xl-3 col-md-6">
                     <div class="card bg-primary text-white mb-4">
                         <div class="card-body">見る  〇件</div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
+                            <a class="small text-white stretched-link" href="#">絞り込む</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
@@ -43,7 +113,7 @@
                     <div class="card bg-warning text-white mb-4">
                         <div class="card-body">食べる  〇件</div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
+                            <a class="small text-white stretched-link" href="#">絞り込む</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
@@ -52,7 +122,7 @@
                     <div class="card bg-success text-white mb-4">
                         <div class="card-body">癒す  〇件</div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
+                            <a class="small text-white stretched-link" href="#">絞り込む</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
@@ -61,100 +131,45 @@
                     <div class="card bg-danger text-white mb-4">
                         <div class="card-body">遊ぶ  〇件</div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
+                            <a class="small text-white stretched-link" href="#">絞り込む</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-area me-1"></i>
-                            訪問履歴
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-                                    <tr>
-                                        <th>出発日</th>
-                                        <th>終了日</th>
-                                        <th>目的地</th>
-                                        <th>住所</th>
-                                        <th>詳細</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% if @records%>
-                                    <% @records.each do |record|%>
-                                        <tr>
-                                            <td><%= record.start_date%></td>
-                                            <td><%= record.end_date%></td>
-                                            <td><%= record.destination%></td>
-                                            <td><%= record.city%></td>
-                                            <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                        </tr> 
-                                    <%end%>
-                                    <%end%>
-                                    
-                                    <tr>
-                                        <td><i class="fa-solid fa-camera"></i></td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="add_plan">
-                                <i class="fa-regular fa-square-plus"></i>
+                <div class="card-group">
+                    <div class="card  mb-4 mx-4">
+                        <div class="container-xxl px-lg-3 py-lg-3">
+                            <!-- Page Features-->
+                            <div class="row gx-lg-5">
+                                <% @spots.each do |spot|%>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card bg-light  h-100">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center ">
+                                                <div class="feature bg-primary  text-white rounded-3 mb-4 mt-n4">
+                                                    <i class="fa-solid <%=spot.icon.value%>"></i>
+                                                </div>
+                                                <h2 class="card-title"> <%= spot.spot_name%></h2>
+                                            </div>
+                                            <div class="card-text">
+                                                    <div class="h5">
+                                                        <%= spot.information%>
+                                                    </div>
+                                                        <br><br>
+                                                    <div class="">
+                                                        住所情報:<%= spot.address%>
+                                                        <a href="<%=edit_spot_path(spot.id)%>"><i class='fa-solid fa-pen-to-square'></i></a>
+                                                    </div>
+                                            </div>
+                                            <%# <h2 class="fs-4 fw-bold">Fresh new layout</h2> %>
+                                            <%# <p class="mb-0">With Bootstrap 5, we've created a fresh new layout for this template!</p> %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%end%>
                             </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-chart-bar me-1"></i>
-                            計画一覧
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-                                    <tr>
-                                        <th>出発日</th>
-                                        <th>終了日</th>
-                                        <th>目的地</th>
-                                        <th>住所</th>
-                                        <th>詳細</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% @plans.each do |plan|%>
-                                        <tr>
-                                            <td><%= plan.start_date%></td>
-                                            <td><%= plan.end_date%></td>
-                                            <td><%= plan.destination%></td>
-                                            <td><%= plan.city%></td>
-                                            <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                        </tr> 
-                                    <%end%>
-                                    <tr>
-                                        <td><i class="fa-solid fa-camera"></i></td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td><i class="fa-solid fa-pen-to-square"></i></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="add_plan">
-                                <i class="fa-regular fa-square-plus"></i>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -162,30 +177,6 @@
         </div>
     </main>
 </div>
-<!-- Page Content-->
-<section class="pt-4">
-    <div class="container px-lg-5">
-        <!-- Page Features-->
-        <div class="row gx-lg-5">
-            <% @spots.each do |spot|%>
-            <div class="col-md-4 mb-4">
-                <div class="card bg-light  h-100">
-                    <div class="card-body">
-                        <div class="feature bg-primary  text-white rounded-3 mb-4 mt-n4"><i class="fa-solid <%=spot.icon.value%>"></i></div>
-                        <h2 class="card-title"><%= spot.spot_name%></h2>
-                        <%# <h4 class="card-title"><%= spot.spot_name%></h4>
-                        <p class="card-text"><%= spot.information%></p>
-                        <%# <h2 class="fs-4 fw-bold">Fresh new layout</h2> %>
-                        <%# <p class="mb-0">With Bootstrap 5, we've created a fresh new layout for this template!</p> %>
-                    </div>
-                </div>
-            </div>
-            <%end%>
-
-        </div>
-    </div>
-</section>
-
 
 <style>
 #gmap {
@@ -240,6 +231,7 @@
           marker.addListener('click', function() {
             infowindow.open(map, marker);
           });
+
 
        })();
       <% end %>

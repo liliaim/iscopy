@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_02_231739) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_110210) do
   create_table "plans", charset: "utf8", force: :cascade do |t|
     t.string "destination", null: false
     t.text "text", null: false
@@ -45,8 +45,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_02_231739) do
     t.text "information"
     t.integer "prefecture_id", null: false
     t.string "address"
-    t.float "latitude"
-    t.float "longitude"
+    t.decimal "latitude", precision: 10, scale: 8
+    t.decimal "longitude", precision: 10, scale: 7
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

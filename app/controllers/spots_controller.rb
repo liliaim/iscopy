@@ -9,6 +9,10 @@ def new
 end
 def create
   @spot = Spot.new(spot_params)
+  #一部の緯度が正常に保存されない事への対応
+  # latitude_string = params[:spot][:latitude]
+  @spot.latitude = BigDecimal(params[:spot][:latitude])
+  @spot.longitude = BigDecimal(params[:spot][:longitude])
   # binding.pry
 
   # @plan = Plan.find(params[:plan_id]) #planのID
@@ -29,6 +33,22 @@ def show
   @spot = Spot.find(params[:id])
 
 end
+# def edit
+#   @spot = Spot.find(params[:id])
+#   @prefecture = Prefecture.find(@spot.prefecture_id)
+
+# end
+# def update #editでマーカー位置を変更したときに住所に反映されない。修正要。
+#   if @spot.update(spot_params)
+#     redirect_to plan_path(@spot.id)
+#   else
+#     render :edit, status: :unprocessable_entity, locals: { spot: @spot }
+#   end
+# end
+
+
+
+
   private
 
   def move_to_index

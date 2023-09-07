@@ -42,3 +42,11 @@
   /* fill: #b4fcb8; */
   /* fill: #ade3f8; */
 /* } */
+.bg01{
+  height: 100vh;
+  width: 100%;
+  background-image: url('1580128_2.jpg');
+  background-color: rgba(248, 249, 250, 0.7);
+  background-blend-mode: lighten;
+  background-size: 100%;
+}

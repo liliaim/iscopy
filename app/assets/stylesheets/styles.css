@@ -77,6 +77,10 @@
   --bs-link-hover-color: #0a58ca;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
+  --bs-iscopy-a: 232, 197, 0;
+  --bs-iscopy-b: 138, 191, 31;
+  --bs-iscopy-c: 112, 199, 242;
+
 }
 
 *,
@@ -311,6 +315,7 @@ svg {
 table {
   caption-side: bottom;
   border-collapse: collapse;
+  width: 90%;
 }
 
 caption {
@@ -8157,6 +8162,7 @@ textarea.form-control-lg {
 .bg-light {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+
 }
 
 .bg-dark {
@@ -10831,4 +10837,24 @@ textarea.form-control-lg {
   height: 4rem;
   width: 4rem;
   font-size: 2rem;
+}
+.feature-iscopy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  font-size: 1rem;
+}
+.bg-iscopy-a {
+  --bs-bg-opacity: 5;
+  background-color: rgba(var(--bs-iscopy-a), var(--bs-bg-opacity)) !important;
+}
+.bg-iscopy-b {
+  --bs-bg-opacity: 5;
+  background-color: rgba(var(--bs-iscopy-b), var(--bs-bg-opacity)) !important;
+}
+.bg-iscopy-c {
+  --bs-bg-opacity: 5;
+  background-color: rgba(var(--bs-iscopy-c), var(--bs-bg-opacity)) !important;
 }
