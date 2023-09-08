@@ -1,4 +1,3 @@
-
 <section class="bg-light py-2">
   <div class="container px-2 my-2 px-5">
     <div class="text-center mb-5">
@@ -17,12 +16,12 @@
           </div>
           <!-- spot_name input-->
           <div class="form-floating mb-1">
-              <%= f.text_field :spot_name, class:"form-control", id:"spot_name", type:"text", placeholder:"例）湯布院" %>
+              <%= f.text_field :spot_name, class:"form-control", id:"spot_name", type:"text", placeholder:"別府温泉" %>
               <label for="spot_name">スポット名（必須）</label>
           </div>
           <!-- Information input-->
           <div class="form-floating mb-1">
-              <%= f.text_field :information, class:"form-control", id:"information", type:"text", placeholder:"例）由布岳、別府からバスでもアクセス可" , style:"height: 10rem"%>
+              <%= f.text_field :information, class:"form-control", id:"information", type:"text", placeholder:"有名な温泉" , style:"height: 10rem"%>
               <label for="information">情報</label>
           </div>
           <!-- Prefecture hidden-->
@@ -86,10 +85,6 @@ function initMap(){
       <%end%>
   });
 
-  // marker = new google.maps.Marker({
-  //   position:  {lat: 40.7828, lng:-73.9653},
-  //   map: map
-  // });
 }
 //検索後のマップ作成
 let geocoder
@@ -117,58 +112,12 @@ function codeAddress(){
         //検索した時に緯度経度を入力する
         document.getElementById('latitude').value = results[0].geometry.location.lat();
         document.getElementById('longitude').value = results[0].geometry.location.lng();
-             // 新しいGeocoderインスタンスを作成
-            // let geocoder2 = new google.maps.Geocoder();
-
-            // // 住所の取得
-            // geocoder2.geocode({ ('location.lat': results[0].geometry.location.lat()) && ('location.lng': results[0].geometry.location.lng()) }, function(results, status) {
-            //   if (status === 'OK') {
-            //     if (results[0]) {
-            //       document.getElementById('address').value = results[0].formatted_address;
-            //     } else {
-            //       console.log('該当する結果がありませんでした。');
-            //     }
-            //   } else {
-            //     console.log('Geocoderのリクエスト中にエラーが発生しました。ステータスコード: ' + status);
-            //   }
-            // });
 
         // マーカーのドロップ（ドラッグ終了）時のイベント
         google.maps.event.addListener( marker, 'dragend', function(ev){
             // イベントの引数evの、プロパティ.latLngが緯度経度
             document.getElementById('latitude').value = ev.latLng.lat();
             document.getElementById('longitude').value = ev.latLng.lng();
-              // let geocoder2
-              // geocoder2.reverseGeocode( { 'latLng': ev.latLng}, function(results, status) {
-              //   console.log(status)
-              //   if (status == 'OK') {
-              //     document.getElementById('address').value = results[0].geometry.location.address();
-              //   }
-              // });
-
-
-              // // 新しいGeocoderインスタンスを作成
-              // let geocoder2 = new google.maps.Geocoder();
-
-              // // マーカーのドロップ（ドラッグ終了）時のイベント
-              // google.maps.event.addListener( marker, 'dragend', function(ev){
-              //   // イベントの引数evの、プロパティ.latLngが緯度経度
-              //   document.getElementById('latitude').value = ev.latLng.lat();
-              //   document.getElementById('longitude').value = ev.latLng.lng();
-
-              //   // 新しいGeocoderインスタンスを使用して緯度経度を住所に変換
-              //   geocoder2.geocode({ 'location': ev.latLng }, function(results, status) {
-              //     if (status === 'OK') {
-              //       if (results[0]) {
-              //         document.getElementById('address').value = results[0].formatted_address;
-              //       } else {
-              //         console.log('該当する結果がありませんでした。');
-              //       }
-              //     } else {
-              //       console.log('Geocoderのリクエスト中にエラーが発生しました。ステータスコード: ' + status);
-              //     }
-              //   });
-              // });
         });
     } else {
       alert('該当する結果がありませんでした：' + status);

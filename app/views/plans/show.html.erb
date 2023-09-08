@@ -1,6 +1,4 @@
-<% content_for :js do %>
-  <%# <%= javascript_import_module_tag "gmap" %> %>
-<% end %>
+
 <!-- Header-->
 <header class="py-5">
     <div class="container px-lg-5">
@@ -19,7 +17,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="row">
-            <div class="col-xl-6">
+            <div class="col-xxl-10">
                 <div class="card mb-4 mx-4">
                     <div class="card-header">
                         <div class="feature-iscopy bg-iscopy-b text-white rounded-5">
@@ -58,41 +56,43 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-6">
-            <div class="card mb-4 mx-4">
-                <div class="card-header">
-                        <div class="feature-iscopy bg-iscopy-c text-white rounded-5">
-                        <i class="fa-solid fa-book"></i>
-                    </div>    旅の記録＜<%= @prefecture.name%>＞
-                </div>
-                <div class="card-body">
-                    <table class="border-secodary">
-                        <thead>
-                                <tr>
-                                    <th>都道府県</th>
-                                    <th>旅先</th>
-                                    <th>内容</th>
-                                    <th>開始日</th>
-                                    <th>終了日</th>
-                                    <th>編集・削除</th>
-                                </tr>
-                        </thead>
-                        <tbody>
-                            <% @records.each do |record|%>
-                                <tr>
-                                    <td><%=record.prefecture.name%></td>
-                                    <td><%=record.destination%></td>
-                                    <td><%=record.text%></td>
-                                    <td><%=record.start_date%></td>
-                                    <td><%=record.end_date%></td>
-                                    <td><a href="<%=edit_record_path%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
-                                </tr>
-                            <%end%>
-                        </tbody>
-                    </table>
-                    <div class="add_record">
-                        <a href="<%=new_record_path%>">
-                        <i class="fa-regular fa-square-plus"></i></a>
+        <div class="row">
+            <div class="col-xxl-10">
+                <div class="card mb-4 mx-4">
+                    <div class="card-header">
+                            <div class="feature-iscopy bg-iscopy-c text-white rounded-5">
+                            <i class="fa-solid fa-book"></i>
+                        </div>    旅の記録＜<%= @prefecture.name%>＞
+                    </div>
+                    <div class="card-body">
+                        <table class="border-secodary">
+                            <thead>
+                                    <tr>
+                                        <th>都道府県</th>
+                                        <th>旅先</th>
+                                        <th>内容</th>
+                                        <th>開始日</th>
+                                        <th>終了日</th>
+                                        <th>編集・削除</th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                <% @records.each do |record|%>
+                                    <tr>
+                                        <td><%=record.prefecture.name%></td>
+                                        <td><%=record.destination%></td>
+                                        <td><%=record.text%></td>
+                                        <td><%=record.start_date%></td>
+                                        <td><%=record.end_date%></td>
+                                        <td><a href="<%=edit_record_path%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
+                                    </tr>
+                                <%end%>
+                            </tbody>
+                        </table>
+                        <div class="add_record">
+                            <a href="<%=new_record_path%>">
+                            <i class="fa-regular fa-square-plus"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>

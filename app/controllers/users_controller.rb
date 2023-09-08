@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @nickname = current_user.nickname
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
     @plans = @user.plans
     @records = @user.records
     pref = []

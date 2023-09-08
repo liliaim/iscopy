@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   root to: "plans#index"
 
   resources :plans
-  resources :users, only: :show
+  resources :users
   resources :records
   resources :spots
 
-  # get '/google_calendar/callback', to: 'users#callback'
 end
