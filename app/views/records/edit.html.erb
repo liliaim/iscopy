@@ -3,13 +3,12 @@
 
     <div class="container px-5 my-5">
         <div class="text-center mb-5">
-            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-calendar-days"></i></div>
-            <h2 class="fw-bolder">計画の確認・修正</h2>
+            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-book"></i></div>
+            <h2 class="fw-bolder">旅の記録の確認・修正</h2>
         </div>
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
-                <!-- This form is pre-integrated with SB Forms.-->
-                <%= form_with model: @plan, local: true do |f| %>
+                <%= form_with model: @record, local: true do |f| %>
                     <%= render 'shared/error_messages', model: f.object %>
                     <!-- prefecture_id input-->
                     <div class="form-floating mb-3">
@@ -18,27 +17,27 @@
                     </div>
                     <!-- destination input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :destination, class:"form-control", id:"destination", type:"text", placeholder:""%>
-                        <label for="destination">目的地（必須）</label>
+                        <%= f.text_field :destination, class:"form-control", id:"destination", type:"text", placeholder:"例）北海道" %>
+                        <label for="destination">旅先（必須）</label>
                     </div>
                     <!-- text input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :text, class:"form-control", id:"text", type:"text", placeholder:"北海道でスカイダイビング" , style:"height: 10rem"%>
+                        <%= f.text_field :text, class:"form-control", id:"text", type:"text", placeholder:"例）北海道でスカイダイビング" , style:"height: 10rem"%>
                         <label for="text">内容（必須）</label>
                     </div>
                     <!-- city input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :city, class:"form-control", id:"city", type:"text", placeholder:"" %>
+                        <%= f.text_field :city, class:"form-control", id:"city", type:"text" %>
                         <label for="city">住所</label>
                     </div>
                     <!-- start_date input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :start_date, class:"form-control", id:"start_date", type:"date", placeholder:"2023/10/1" %>
+                        <%= f.text_field :start_date, class:"form-control", id:"start_date", type:"date" %>
                         <label for="start_date">開始日</label>
                     </div>
                     <!-- end_date input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :end_date, class:"form-control", id:"end_date", type:"date", placeholder:"2023/10/7" %>
+                        <%= f.text_field :end_date, class:"form-control", id:"end_date", type:"date" %>
                         <label for="end_date">終了日</label>
                     </div>
                     <!-- Submit Button-->
@@ -46,13 +45,11 @@
                             <%= f.submit "Update", class:"btn btn-primary btn-lg",data: {turbo:false}%>
                     </div>
                     <div class="d-grid mb-3">
-                      <%= link_to "Delete", plan_path, data: { turbo_method: :delete }, class: "btn btn-danger btn-sm " %>
+                      <%= link_to "Delete", record_path,data: {turbo:false}, data: { turbo_method: :delete }, class: "btn btn-danger btn-sm " %>
                     </div>
-
               <% end %>
             </div>
         </div>
-
-
+        
     </div>
 </div>

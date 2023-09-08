@@ -45,6 +45,7 @@ class PlansController < ApplicationController
   def destroy
     plan = Plan.find(params[:id])
     plan.destroy
+    response.headers["Turbo-Stream"] = "false"
     redirect_to user_path(current_user.id)
   end
 

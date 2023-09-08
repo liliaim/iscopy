@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :plans
   resources :users
-  resources :records,only: [:new, :create,:edit, :update]
+  resources :records
   resources :spots
 
 end
