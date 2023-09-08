@@ -81,7 +81,7 @@
                                                 <td><%=plan.text%></td>
                                                 <td><%=plan.start_date%></td>
                                                 <td><%=plan.end_date%></td>
-                                                <td><a href="<%=edit_plan_path%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
+                                                <td><a href="<%=edit_plan_path(plan.id)%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
                                             </tr> 
                                         <%end%>
                                     </tbody>
@@ -118,7 +118,7 @@
                                                 <td><%=record.text%></td>
                                                 <td><%=record.start_date%></td>
                                                 <td><%=record.end_date%></td>
-                                                <td><a href="<%=edit_record_path%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
+                                                <td><a href="<%=edit_record_path(record.id)%>"><i class='fa-solid fa-pen-to-square'></i></a></td>
                                             </tr>
                                         <%end%>
                                     </tbody>

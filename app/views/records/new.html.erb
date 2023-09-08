@@ -14,51 +14,32 @@
                     <div class="form-floating mb-3">
                         <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"form-control"}) %>
                         <label for="prefecture_id">都道府県（必須）</label>
-                        <div class="invalid-feedback" data-sb-feedback="prefecture_id:required">都道府県を選択してください</div>
                     </div>
                     <!-- destination input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :destination, class:"form-control", id:"destination", type:"text", placeholder:"目的地（必須）" %>
+                        <%= f.text_field :destination, class:"form-control", id:"destination", type:"text", placeholder:"例）北海道" %>
                         <label for="destination">旅先（必須）</label>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">旅先を入力してください</div>
                     </div>
                     <!-- text input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :text, class:"form-control", id:"text", type:"text", placeholder:"北海道でスカイダイビング" , style:"height: 10rem"%>
+                        <%= f.text_field :text, class:"form-control", id:"text", type:"text", placeholder:"例）北海道でスカイダイビング" , style:"height: 10rem"%>
                         <label for="text">内容（必須）</label>
-                        <div class="invalid-feedback" data-sb-feedback="email:required">テキストを入力してください</div>
                     </div>
                     <!-- city input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :city, class:"form-control", id:"city", type:"text", placeholder:"市町村..." %>
+                        <%= f.text_field :city, class:"form-control", id:"city", type:"text" %>
                         <label for="city">住所</label>
                     </div>
                     <!-- start_date input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :start_date, class:"form-control", id:"start_date", type:"date", placeholder:"2023/10/1" %>
+                        <%= f.text_field :start_date, class:"form-control", id:"start_date", type:"date" %>
                         <label for="start_date">開始日</label>
-                        <div class="invalid-feedback" data-sb-feedback="date:date">Date is not valid.</div>
                     </div>
                     <!-- end_date input-->
                     <div class="form-floating mb-3">
-                        <%= f.text_field :end_date, class:"form-control", id:"end_date", type:"date", placeholder:"2023/10/7" %>
+                        <%= f.text_field :end_date, class:"form-control", id:"end_date", type:"date" %>
                         <label for="end_date">終了日</label>
-                        <div class="invalid-feedback" data-sb-feedback="date:date">Date is not valid.</div>
                     </div>
-                    <!-- Submit success message-->
-                    <!---->
-                    <!-- This is what your users will see when the form-->
-                    <!-- has successfully submitted-->
-                    <div class="d-none" id="submitSuccessMessage">
-                        <div class="text-center mb-3">
-                            <div class="fw-bolder">Form submission successful!</div>
-                        </div>
-                    </div>
-                    <!-- Submit error message-->
-                    <!---->
-                    <!-- This is what your users will see when there is-->
-                    <!-- an error submitting the form-->
-                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                     <!-- Submit Button-->
                     <div class="d-grid">
                             <%= f.submit "Submit", class:"btn btn-primary btn-lg",data: {turbo:false}%>
