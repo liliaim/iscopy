@@ -29,7 +29,7 @@
           <%= f.hidden_field :prefecture_id, value: @prefecture.id, id:"prefecture_id" %>
           </div>
           <!-- Address input-->              
-          <p>住所キーワードから緯度経度を検索し、下部の送信ボタンを押してください。</p>
+          <p>住所キーワードから緯度経度を検索し、下部の登録ボタンを押してください。</p>
           <div class="form-floating mb-1 my-3">
             <div>
               <%= f.text_field :address,placeholder:"住所キーワード", id:"address", type:"text"%>
@@ -52,7 +52,7 @@
           </div>
           <!-- Submit Button-->
           <div class="d-grid">
-              <%= f.submit "Submit", class:"btn btn-primary btn-lg" %>
+              <%= f.submit "登録", class:"btn btn-primary btn-lg" %>
           </div>
         <% end %>
       </div>

@@ -7,7 +7,8 @@
                         <div class="text-center my-5">
                             <h1 class="display-5 fw-bolder text-white mb-2">旅の計画を管理しよう</h1>
                             <p class="lead text-white-50 mb-4">地図を見てわかる旅の計画と記録。旅好きのための国内旅行管理アプリ</p>
-                                <img class="d-block mx-auto img-fluid rounded mb-4 mb-lg-0" src="/assets/chizu_color.png" alt="..." />
+                                <%# <img src="/assets/chizu_color.png"class="d-block mx-auto img-fluid rounded mb-4 mb-lg-0"  alt="..." /> %>
+                                <%=image_tag "chizu_color.png", class: "d-block mx-auto img-fluid rounded mb-4 mb-lg-0" %>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                               <% if user_signed_in? %>
                                 <%= link_to "マイページ", "/users/#{current_user.id}",data: {turbo:false}, class: "btn btn-primary btn-lg px-4 me-sm-3"%>
@@ -24,13 +25,14 @@
         </header>
         <!-- Features section-->
         <section class="py-5 border-bottom" id="features">
+            <h4 class="h4 fw-bolder my-5 text-center">マイページから3つの項目を登録しよう</h4>
             <div class="container px-5 my-5">
                 <div class="row gx-5">
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-calendar-days"></i></div>
                         <%# ↓↓↓使い方を説明するページに変更する %>
-                        <h2 class="h4 fw-bolder">旅の計画</h2>
-                        <p>何時か行きたい場所、もう一度行きたい場所、沢山ありすぎて覚えていられないから、全部登録してしまおう</p>
+                        <h4 class="h4 fw-bolder">旅の計画</h4>
+                        <p>いつか行きたい場所、もう一度行きたい場所、沢山ありすぎて覚えていられないから、全部登録してしまおう</p>
                         <%# <a class="text-decoration-none" href="#!">
                             Call to action
                             <i class="bi bi-arrow-right"></i>
@@ -38,7 +40,7 @@
                     </div>
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-book"></i></div>
-                        <h2 class="h4 fw-bolder">旅の記録</h2>
+                        <h4 class="h4 fw-bolder">旅の記録</h4>
                         <p>歩いた道、見た景色、印象的な出来事を記録する</p>
                         <%# <a class="text-decoration-none" href="#!">
                             Call to action
