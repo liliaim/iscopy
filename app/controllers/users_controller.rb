@@ -7,21 +7,24 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     @plans = @user.plans
     @records = @user.records
-    pref = []
+
+    #planのあるprefecture_idを@pref_has_planへ格納
+    pref_has_plan = []
     @plans.each do |plan|
-      unless pref.include?(plan.prefecture_id)
-       pref << plan.prefecture_id
+      unless pref_has_plan.include?(plan.prefecture_id)
+        pref_has_plan << plan.prefecture_id
       end
     end
-    @pref = pref.sort
-# binding.pry
-    pref_rec = []
+    @pref_has_plan = pref_has_plan.sort
+
+    #recordのあるprefecture_idを@pref_has_recordへ格納
+    pref_has_record = []
     @records.each do |record|
-      unless pref_rec.include?(record.prefecture_id)
-        pref_rec << record.prefecture_id
+      unless pref_has_record.include?(record.prefecture_id)
+        pref_has_record << record.prefecture_id
       end
     end
-    @pref_rec = pref_rec.sort
+    @pref_has_record = pref_has_record.sort
 
 
     #
