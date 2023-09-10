@@ -3,17 +3,13 @@ class PlansController < ApplicationController
   before_action :move_to_index, except: [:index] #追加
   before_action :set_plan, only: [:edit,  :update]
 
-  def index
-    @plans = Plan.order("created_at DESC") #変更要。start_dateにしたいけどそれだとstart_dateをnull:falseにしなければ
-  end
   def new
     @plan = Plan.new
-    #  binding.pry
   
   end
   def create
     @plan = Plan.new(plan_params)
-    # binding.pry
+
     if @plan.save
       redirect_to "/users/#{current_user.id}"
     else
@@ -34,14 +30,6 @@ class PlansController < ApplicationController
     end
   end
 
-  def show
-    @prefecture = Prefecture.find(params[:id])
-  @records = Record.where(user_id: current_user.id, prefecture_id: @prefecture.id)
-  @plans = Plan.where(user_id: current_user.id, prefecture_id: @prefecture.id)
-  @spots = Spot.where(user_id: current_user.id, prefecture_id: @prefecture.id)
-      #  binding.pry
-
-  end
   def destroy
     plan = Plan.find(params[:id])
     plan.destroy

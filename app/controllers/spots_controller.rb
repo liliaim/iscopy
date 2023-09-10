@@ -3,27 +3,21 @@ class SpotsController < ApplicationController
 
 def new
   @spot = Spot.new
-  #  binding.pry
   @prefecture = Prefecture.find(params[:format])
 
 end
 def create
   @spot = Spot.new(spot_params)
+
   #一部の緯度が正常に保存されない事への対応
-  # latitude_string = params[:spot][:latitude]
   @spot.latitude = BigDecimal(params[:spot][:latitude])
   @spot.longitude = BigDecimal(params[:spot][:longitude])
-  # binding.pry
 
-  # @plan = Plan.find(params[:plan_id]) #planのID
-  # @spots = Spot.where(user_id: @plan.user_id, prefecture_id: @plan.prefecture_id)
-  @prefecture = Prefecture.find(params[:spot][:prefecture_id])
-  # @plans = Plan.where(user_id: current_user.id, prefecture_id: @prefecture.id)
-  # @spots = Spot.where(user_id: current_user.id, prefecture_id: @prefecture.id)
+  prefecture = Prefecture.find(params[:spot][:prefecture_id])
 
   # binding.pry
   if @spot.save
-    redirect_to plan_path( @prefecture.id)
+    redirect_to prefecture_path( prefecture.id)
 
   else
     render new_spot_path, status: :unprocessable_entity
