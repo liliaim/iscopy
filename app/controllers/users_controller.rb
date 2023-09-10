@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :move_to_index
+  before_action :move_to_index, except: [:index] #追加
   # before_action :calendar_param, only: [:show, :callback]
-
+  def index
+  end
   def show
     @nickname = current_user.nickname
     @user = User.find(current_user.id)
