@@ -7,6 +7,7 @@
     if (res.ok) {
       const svg = await res.text();
       container.innerHTML = svg;
+      container.insertAdjacentHTML('beforeend', '<div class="d-flex align-items-sm-end justify-content-end text-center text-white row-cols-4 mb-3"><div class=" bg-iscopy-b bg-gradient rounded-5 px-2"><i class="fa-solid fa-calendar-days"></i>計画中</div><div class=" bg-iscopy-c bg-gradient  rounded-5 px-2"><i class="fa-solid fa-book"></i>記録あり</div><div class=" bg-iscopy-a bg-gradient rounded-5 px-2"><i class="fa-solid fa-bookmark"></i>リピート予定</div></div>');
 
       const prefectureElements = document.querySelectorAll(".prefecture");
       const prefCodes = JSON.parse(container.getAttribute("data-pref-codes")); //計画がある都道府県のprefecture_id
@@ -40,7 +41,7 @@
 
         prefecture.addEventListener("click", function() {      
           // 対応する都道府県のplan_pathにリダイレクト
-          window.location.href = `/plans/${svgDataCode}`;
+          window.location.href = `/prefectures/${svgDataCode}`;
         });
       });
     }
