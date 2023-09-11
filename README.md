@@ -85,8 +85,8 @@ Things you may want to cover:
 | information   | text       |                                |
 | prefecture_id | integer    | null: false                    |
 | address       | string     |                                |
-| latitude      | float      |                                |
-| longitude     | float      |                                |
+| latitude      | decimal    |                                |
+| longitude     | decimal    |                                |
 | user          | references | null: false, foreign_key: true |
 
 ### Association
