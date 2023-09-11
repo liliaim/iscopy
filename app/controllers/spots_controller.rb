@@ -1,5 +1,6 @@
 class SpotsController < ApplicationController
   before_action :move_to_index, except: [:index]
+  before_action :set_spot, only: [:show, :edit, :update]
 
 def new
   @spot = Spot.new
@@ -23,23 +24,31 @@ def create
     render new_spot_path, status: :unprocessable_entity
   end
 end
-def show
-  @spot = Spot.find(params[:id])
+# def show
+#   # @spot = Spot.find(params[:id])
 
-end
+# end
 # def edit
-#   @spot = Spot.find(params[:id])
+#   # @spot = Spot.find(params[:id])
 #   @prefecture = Prefecture.find(@spot.prefecture_id)
 
 # end
 # def update #editでマーカー位置を変更したときに住所に反映されない。修正要。
+#   # binding.pry
 #   if @spot.update(spot_params)
-#     redirect_to plan_path(@spot.id)
+   
+#     redirect_to prefecture_path(@spot.prefecture_id)
 #   else
 #     render :edit, status: :unprocessable_entity, locals: { spot: @spot }
 #   end
 # end
 
+def destroy
+  spot = Spot.find(params[:id])
+  spot.destroy
+  response.headers["Turbo-Stream"] = "false"
+  redirect_to prefecture_path(spot.prefecture_id)
+end
 
 
 
@@ -51,6 +60,10 @@ end
     end
   end
   def spot_params
-    params.require(:spot).permit(:icon_id,:spot_name,:information,:prefecture_id,:address,:latitude,:logitude).merge(user_id: current_user.id)
+    params.require(:spot).permit(:icon_id,:spot_name,:information,:prefecture_id,:address,:latitude,:longitude).merge(user_id: current_user.id)
   end
+  def set_spot
+    @spot = Spot.find(params[:id])
+  end
+
 end
