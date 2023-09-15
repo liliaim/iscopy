@@ -22,7 +22,7 @@ https://iscopy.onrender.com/ <br >
 
 ## テスト用アカウント
 テスト用（サンプルデータ登録済。不定期にリセット実施）
-  - メールアドレス: test1@test.com
+  - メールアドレス: test@test.com
   - パスワード: 111aaa
 
   - WebブラウザGoogle Chromeの最新版を利用してアクセスしてください。

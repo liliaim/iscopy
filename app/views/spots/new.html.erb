@@ -1,4 +1,7 @@
 
+<% content_for :js_new do %>
+  <%= javascript_import_module_tag "preview" %>
+<% end %>
 <section class="bg-light py-2">
   <div class="container px-2 my-2 px-5">
     <div class="text-center mb-5">
@@ -8,28 +11,10 @@
 
       <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
         <h2 class="fs-4 fw-bold"><%=@prefecture.name%>の新しいスポットを登録</h2>
-        <%= form_with model: @spot, local: true do |f| %>
+        <%= form_with model: @spot, id: 'item_form', local: true do |f| %>
         <%= render 'shared/error_messages', model: f.object%>
-            <!-- icon_id input-->
-          <div class="form-floating mb-1">
-              <%= f.collection_select(:icon_id, Icon.all, :id, :name, {}, {class:"form-control"}) %>
-              <label for="icon_id">種類（必須）</label>
-          </div>
-          <!-- spot_name input-->
-          <div class="form-floating mb-1">
-              <%= f.text_field :spot_name, class:"form-control", id:"spot_name", type:"text", placeholder:"例）湯布院" %>
-              <label for="spot_name">スポット名（必須）</label>
-          </div>
-          <!-- Information input-->
-          <div class="form-floating mb-1">
-              <%= f.text_field :information, class:"form-control", id:"information", type:"text", placeholder:"例）由布岳、別府からバスでもアクセス可" , style:"height: 10rem"%>
-              <label for="information">情報</label>
-          </div>
-          <!-- Prefecture hidden-->
-          <%= f.hidden_field :prefecture_id, value: @prefecture.id, id:"prefecture_id" %>
-          </div>
           <!-- Address input-->              
-          <p>住所キーワードから緯度経度を検索し、下部の登録ボタンを押してください。</p>
+          <p>住所キーワードから緯度経度を検索して位置情報を指定してください。</p>
           <div class="form-floating mb-1 my-3">
             <div>
               <%= f.text_field :address,placeholder:"住所キーワード", id:"address", type:"text"%>
@@ -48,7 +33,38 @@
           </div>
           <div class="d-grid justify-content-center my-3">
             マーカーをドラック＆ドロップで位置の調整ができます。
-            <div id='gmap'></div><br>
+            <div id='gmap' class="d-block mx-auto img-fluid  mb-4 mb-lg-0"></div><br>
+          </div>
+          <!-- icon_id input-->
+          <div class="form-floating mb-1">
+              <%= f.collection_select(:icon_id, Icon.all, :id, :name, {}, {class:"form-control"}) %>
+              <label for="icon_id">種類（必須）</label>
+          </div>
+          <!-- spot_name input-->
+          <div class="form-floating mb-1">
+              <%= f.text_field :spot_name, class:"form-control", id:"spot_name", type:"text", placeholder:"例）湯布院" %>
+              <label for="spot_name">スポット名（必須）</label>
+          </div>
+          <!-- Information input-->
+          <div class="form-floating mb-1">
+              <%= f.text_field :information, class:"form-control", id:"information", type:"text", placeholder:"例）由布岳、別府からバスでもアクセス可" , style:"height: 10rem"%>
+              <label for="information">情報</label>
+          </div>
+          <!-- Prefecture hidden-->
+          <%= f.hidden_field :prefecture_id, value: @prefecture.id, id:"prefecture_id" %>
+          </div>
+          <!-- Information input-->
+          <div class="img-upload py-5">
+            <div class="weight-bold-text">
+              
+              <div id="previews"></div>
+            </div>
+            <div class="click-upload">
+              <p>
+                クリックして画像をアップロード
+              </p>
+              <%= f.file_field :image, id:"item-image" %>
+            </div>
           </div>
           <!-- Submit Button-->
           <div class="d-grid">
@@ -62,9 +78,10 @@
 
 
 <style>
-#gmap {
-  height: 600px;
-  width: 600px;
+#gmap{
+  width: 40rem;
+  max-width: 100%;
+  height: 30rem;
   text-align: center;
 }
 </style>
@@ -96,6 +113,7 @@ let geocoder
 let aft
 function codeAddress(){
   let inputAddress = document.getElementById('address').value;
+  document.getElementById('spot_name').value = document.getElementById('address').value
   geocoder.geocode( { 'address': inputAddress}, function(results, status) {
     if (status == 'OK') {
         //マーカーが複数できないようにする

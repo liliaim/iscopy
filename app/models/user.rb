@@ -16,7 +16,7 @@ class User < ApplicationRecord
 
   def password_complexity
     # パスワードは半角英数字を条件とする
-    complexity_regex = /\A(?=.*?[a-z]\d)[a-z\d]+\z/i
+    complexity_regex = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
 
     return if password.blank? || password =~ complexity_regex
 
