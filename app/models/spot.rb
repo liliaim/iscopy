@@ -11,6 +11,7 @@ class Spot < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :icon
 
+  has_one_attached :image 
 
   geocoded_by :address
   reverse_geocoded_by :latitude, :longitude
