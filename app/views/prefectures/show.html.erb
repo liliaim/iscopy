@@ -184,7 +184,7 @@
                                                     <div class="h5">
                                                         <%= spot.information%>
                                                     </div>
-                                                        <br><br>
+              <%= image_tag spot.image.variant(resize: '200x200'), class: 'message-image d-block mx-auto img-fluid  mb-4 mb-lg-0' if spot.image.attached? %> 
                                                     <% end %>
                                                     <div class="">
                                                         【住所】<%= spot.address%>
