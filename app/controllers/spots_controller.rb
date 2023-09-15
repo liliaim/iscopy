@@ -24,10 +24,10 @@ def create
     render new_spot_path, status: :unprocessable_entity
   end
 end
-# def show
-#   # @spot = Spot.find(params[:id])
+def show
+  @spot = Spot.find(params[:id])
 
-# end
+end
 # def edit
 #   # @spot = Spot.find(params[:id])
 #   @prefecture = Prefecture.find(@spot.prefecture_id)
@@ -60,7 +60,7 @@ end
     end
   end
   def spot_params
-    params.require(:spot).permit(:icon_id,:spot_name,:information,:prefecture_id,:address,:latitude,:longitude).merge(user_id: current_user.id)
+    params.require(:spot).permit(:icon_id,:spot_name,:information,:prefecture_id,:address,:latitude,:longitude, :image).merge(user_id: current_user.id)
   end
   def set_spot
     @spot = Spot.find(params[:id])

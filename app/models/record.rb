@@ -11,7 +11,6 @@ class Record < ApplicationRecord
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
-
   private
 
   def validate_plan_presence

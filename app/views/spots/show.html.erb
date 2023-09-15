@@ -1,9 +1,44 @@
-<div id='gmap'></div>
+<header class="py-5">
+  <div class="container px-lg-5">
+    <div class="p-4 p-lg-5 bg-light rounded-3 text-left">
+      <div class="m-4 m-lg-5">
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <div class="h3"><%=@spot.spot_name%></div>
+            <div><%=@spot.information%></div>
+          </div>
+          <div class="card-body">
+            投稿画像
+            <div>
+              <%= image_tag @spot.image.variant(resize: '200x200'), class: 'message-image' if @spot.image.attached? %> 
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header">
+           位置情報
+          </div>
+          <div class="card-body">
+            <div id='gmap'></div>
+            <div><p><%=@spot.address%></p></div>
+            <div><p>緯度 : <%=@spot.latitude%></p></div>
+            <div><p>経度 : <%=@spot.longitude%></p></div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</header>
 
 <style>
 #gmap {
-  height: 600px;
-  width: 100%;
+  height: 20rem;
+  width: 30rem;
+  text-align: center;
 }
 </style>
 
