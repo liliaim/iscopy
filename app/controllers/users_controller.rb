@@ -9,6 +9,9 @@ class UsersController < ApplicationController
     @plans = @user.plans
     @records = @user.records
 
+    @records_page = @user.records.page(params[:page])
+    @plans_page = @user.plans.page(params[:page])
+
     #planのあるprefecture_idを@pref_has_planへ格納
     pref_has_plan = []
     @plans.each do |plan|
@@ -27,7 +30,6 @@ class UsersController < ApplicationController
     end
     @pref_has_record = pref_has_record.sort
 
-
     #
     # token_path = 'token.yml' # ユーザーのAPIトークンの保存先
     # scope = Google::Apis::CalendarV3::AUTH_CALENDAR_EVENTS # Google Cloudコンソールで設定したスコープ
@@ -44,6 +46,13 @@ class UsersController < ApplicationController
     # @authorization_url = oauth_client.get_authorization_url(base_url: base_url)
     #
   end
+
+  def paginate
+    @records_page = @user.records.page(params[:page]).per(10)
+    @plans_page = @user.plans.page(params[:page]).per(10)
+    render layout: false
+  end
+
 #   def callback
 #     token_path = 'token.yml' # ユーザーのAPIトークンの保存先
 #     scope = Google::Apis::CalendarV3::AUTH_CALENDAR_EVENTS # Google Cloudコンソールで設定したスコープ
@@ -97,6 +106,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end
+
   # def calendar_param
   #   token_path = 'token.yml' # ユーザーのAPIトークンの保存先
   #   scope = Google::Apis::CalendarV3::AUTH_CALENDAR_EVENTS # Google Cloudコンソールで設定したスコープ

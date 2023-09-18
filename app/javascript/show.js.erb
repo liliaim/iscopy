@@ -1,0 +1,52 @@
+
+document.addEventListener('DOMContentLoaded', function () {
+  const paginationContainer = document.querySelector('.pagination');
+  const partialContainer = document.querySelector('#pagenate');
+
+  paginationContainer.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    if (e.target.tagName === 'A') {
+      const url = e.target.getAttribute('href');
+
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest' // Ajaxリクエストであることを示すヘッダー
+        }
+      })
+        .then(response => response.text())
+        .then(data => {
+          const extractedData = extractDesiredData(data);
+          partialContainer.innerHTML = extractedData;
+          // ページネーションリンクを置き換える
+          paginationContainer.innerHTML = getNewPaginationLinks(data);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  });
+
+  // dataから特定の要素を抽出する関数の実装例
+  function extractDesiredData(data) {
+    const regex = /<tbody id="pagenate">([\s\S]*?)<\/tbody>/;
+    const match = data.match(regex);
+
+    if (match) {
+      return match[0];
+    } else {
+      return 'データが見つかりませんでした。';
+    }
+  }
+
+  // 新しいページネーションリンクを生成する関数の実装例
+  function getNewPaginationLinks(data) {
+    const regex = /<div class="pagination">([\s\S]*?)<\/div>/;
+    const match = data.match(regex);
+
+    if (match) {
+      return match[0];
+    } else {
+      return '';
+    }
+  }
+});

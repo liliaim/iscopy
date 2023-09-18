@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   get '/prefectures/:id', to: 'prefectures#show', as: 'prefecture'
 
   resources :plans
-  resources :users
+  # resources :users
+  resources :users do
+    collection do
+      get 'paginate'
+    end
+  end
   resources :records
   resources :spots
 
