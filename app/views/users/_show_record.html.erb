@@ -1,13 +1,10 @@
-<% content_for :js do %>
-  <%= javascript_import_module_tag "show" %>
-<% end %>
                       <div class="card-header text-center">
                           <div class=" bg-iscopy-c text-white rounded-5">
                               <i class="fa-solid fa-book">    旅の記録</i>
                           </div>
                       </div>
                       <div class="card-body">
-                        <table class="border-secodary">
+                        <table class="table-with-pagination record border-secondary">
                           <thead>
                                   <tr>
                                       <th>都道府県</th>
@@ -18,8 +15,7 @@
                                       <th>詳細・編集</th>
                                   </tr>
                           </thead>
-                              <%# <tbody id="record-pagenate"> %>
-                              <tbody id="pagenate">
+                              <tbody id="pagenate_record">
                                 <% @records_page.each  do |record|%>
                                     <tr>
                                         <td><%=record.prefecture.name%></td>
@@ -46,7 +42,10 @@
                                 <%end%>
 
                               </tbody>
+
                             </table>
+                                                            <div class="pagination record"><%= paginate @records_page, remote: true, param_name: 'record_page' %></div>
+
                           <div class="add_record">
                               <a href="<%=new_record_path%>">
                               <i class="fa-regular fa-square-plus"></i></a>

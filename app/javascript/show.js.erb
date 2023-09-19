@@ -1,34 +1,57 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-  const paginationContainer = document.querySelector('.pagination');
-  const partialContainer = document.querySelector('#pagenate');
+  // クリックイベントリスナーをテーブルごとに適用
+  const planTable = document.querySelector('.table-with-pagination.plan');
+  const recordTable = document.querySelector('.table-with-pagination.record');
 
-  paginationContainer.addEventListener('click', function (e) {
-    e.preventDefault();
+  const planPaginationContainer = document.querySelector('.plan.pagination');
+  const planPartialContainer = planTable.querySelector('#pagenate_plan');
 
-    if (e.target.tagName === 'A') {
-      const url = e.target.getAttribute('href');
+  const recordPaginationContainer = document.querySelector('.record.pagination');
+  const recordPartialContainer = recordTable.querySelector('#pagenate_record');
 
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest' // Ajaxリクエストであることを示すヘッダー
-        }
-      })
-        .then(response => response.text())
-        .then(data => {
-          const extractedData = extractDesiredData(data);
-          partialContainer.innerHTML = extractedData;
-          // ページネーションリンクを置き換える
-          paginationContainer.innerHTML = getNewPaginationLinks(data);
+
+  function applyTablePagination(paginationContainer, partialContainer, tableClass) {
+
+    paginationContainer.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      if (e.target.tagName === 'A') {
+        const url = e.target.getAttribute('href');
+
+        fetch(url, {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest' // Ajaxリクエストであることを示すヘッダー
+          }
         })
-        .catch(error => console.error('Error:', error));
-    }
-  });
+          .then(response => response.text())
+          .then(data => {
+
+            const extractedData = extractDesiredData(data,tableClass);
+            partialContainer.innerHTML = extractedData;
+
+            // ページネーションリンクを置き換える
+            paginationContainer.innerHTML = getNewPaginationLinks(data,tableClass);
+          })
+          .catch(error => console.error('Error:', error));
+      }
+    });
+  }
+
+  applyTablePagination(planPaginationContainer, planPartialContainer, 'plan');
+  applyTablePagination(recordPaginationContainer, recordPartialContainer, 'record');
 
   // dataから特定の要素を抽出する関数の実装例
-  function extractDesiredData(data) {
-    const regex = /<tbody id="pagenate">([\s\S]*?)<\/tbody>/;
+  function extractDesiredData(data,tableClass) {
+    let regex;
+    if (tableClass === 'plan') {
+    regex = /<tbody id="pagenate_plan">([\s\S]*?)<\/tbody>/;
+
+    } else if (tableClass === 'record') {
+    regex = /<tbody id="pagenate_record">([\s\S]*?)<\/tbody>/;
+    }
+
     const match = data.match(regex);
 
     if (match) {
@@ -39,8 +62,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // 新しいページネーションリンクを生成する関数の実装例
-  function getNewPaginationLinks(data) {
-    const regex = /<div class="pagination">([\s\S]*?)<\/div>/;
+  function getNewPaginationLinks(data,tableClass) {
+    let regex;
+    if (tableClass === 'plan') {
+       regex = /<div class="pagination plan">([\s\S]*?)<\/div>/;
+      } else if (tableClass === 'record') {
+        regex = /<div class="pagination record">([\s\S]*?)<\/div>/;
+      }
+
     const match = data.match(regex);
 
     if (match) {
@@ -50,3 +79,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
+

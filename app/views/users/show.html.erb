@@ -14,7 +14,7 @@
                     <h3 class="h3 font-weight-light mb-5">マイページTOP画面</h3>
 
                     <div class=" bg-primary bg-gradient text-white rounded-5 mb-3 text-center ">
-                        <i class="fa-solid fa-id-card h4"></i>
+                        <%# <i class="fa-solid fa-id-card h4"></i> %>
                         <%= @nickname %> さんがログイン中…
                     </div>
                     <%# <div class="my-2"><%= link_to "ユーザー情報変更", "", class:"btn btn-secondary" %>
@@ -42,12 +42,11 @@
             </div>
                         <div class="card mb-4">
                                     <%= render partial: 'show_plan' %>
-                                    <%# <div class="pagination"><%= paginate @plans_page, remote: true %>
                         </div>
                         <div class="card mb-4">
 
                             <%= render partial: 'show_record' %>
-                            <div class="pagination"><%= paginate @records_page, remote: true %></div>
+
                        </div>
 
                     </div>
