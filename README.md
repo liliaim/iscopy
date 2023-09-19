@@ -31,7 +31,7 @@ https://iscopy.onrender.com/ <br >
   - 同時に複数の方がログインしている場合に、ログインできない可能性があります。
   - テストアカウントでログイン→トップページからマイページ押下→商品情報入力→商品出品
   - 確認後、ログアウト処理をお願いします。
-  - アプリのスリープ解除のため、30秒程度の応答遅延が発生する可能性がございます。
+
 
 
 # 使用技術
@@ -49,11 +49,13 @@ https://iscopy.onrender.com/ <br >
 - PostgreSQL (psql 14.8)
 - Puma
 - RSpec
+- kaminari
 ## インフラ
 - VSCode(開発環境)
 
 ## その他
 - Git/GitHub
+- UptimeReboot
 
 ### Githubリポジトリ
 https://github.com/liliaim/iscopy
@@ -63,8 +65,10 @@ https://github.com/liliaim/iscopy
 - ユーザー登録、ログイン機能(devise)
 - 計画投稿機能
 - 記録投稿機能
-- スポット登録機能
-- 位置情報検索機能(geocoder)
+- マイページ機能（地図からのリンク、計画一覧、記録一覧、ページネーション）
+- 都道府県ページ（都道府県ごとの計画・記録・スポット）
+- スポット登録機能(geocoderによる位置情報検索、画像投稿)
+
 
 
 # テスト
@@ -72,8 +76,9 @@ https://github.com/liliaim/iscopy
   - 単体テスト(model)
   
 # 追加実装予定機能
-- 画像投稿機能
+- 全国の登録スポット一覧
 - スポット検索機能
+
 
 # テーブル設計
 
