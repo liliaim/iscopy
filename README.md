@@ -50,6 +50,8 @@ https://iscopy.onrender.com/ <br >
 - Bootstrap 5.2.3
 - StartBootstrap
 - FontAwesome
+- kaminari
+
 ## バックエンド
 - Ruby 3.2.0
 - Ruby on Rails 7.0.7
@@ -57,7 +59,6 @@ https://iscopy.onrender.com/ <br >
 - PostgreSQL (psql 14.8)
 - Puma
 - RSpec
-- kaminari
 ## インフラ
 - VSCode(開発環境)
 

@@ -2,6 +2,10 @@ class SpotsController < ApplicationController
   before_action :move_to_index, except: [:index]
   before_action :set_spot, only: [:show, :edit, :update]
 
+  def index
+    @spots = Spot.where(user_id: current_user.id)
+
+  end
 def new
   @spot = Spot.new
   @prefecture = Prefecture.find(params[:format])

@@ -1,0 +1,164 @@
+<!-- Header-->
+<header class="py-5">
+    <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-left">
+            <div class="m-4 m-lg-5">
+
+                <%= link_to "新しいスポットを登録する", new_spot_path, class:"btn btn-primary",data:{turbo:false} %>
+                <a href="#spot" class="btn btn-outline-primary">全国のスポット一覧</a>
+            </div>
+            <div class="m-4 m-lg-5">
+                <div id='gmap'class="d-block mx-auto img-fluid rounded mb-4 mb-lg-0"></div>
+            </div>
+    </div>
+</header>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h3 class="mt-4" id="spot">スポット一覧</h3>
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">見る  〇件</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">絞り込む</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">食べる  〇件</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">絞り込む</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">癒す  〇件</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">絞り込む</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body">遊ぶ  〇件</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="#">絞り込む</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card-group">
+                    <div class="card  mb-4 mx-4">
+                        <div class="container-xxl px-lg-3 py-lg-3">
+                            <!-- Page Features-->
+                            <div class="row gx-lg-5">
+                                <% @spots.each do |spot|%>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card bg-light  h-100">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center ">
+                                                <div class="feature bg-primary  text-white rounded-3 mb-4 mt-n4">
+                                                    <i class="fa-solid <%=spot.icon.value%>"></i>
+                                                </div>
+                                                <%= link_to spot_path(spot.id),class:"text-decoration-none" do %>
+                                                <h2 class="card-title px-2"> <%= spot.spot_name%></h2>
+                                            </div>
+                                            <div class="card-text">
+                                                    <div class="h5">
+                                                        <%= spot.information%>
+                                                    </div>
+              <%= image_tag spot.image.variant(resize: '200x200'), class: 'message-image d-block mx-auto img-fluid  mb-4 mb-lg-0' if spot.image.attached? %> 
+                                                    <% end %>
+                                                    <div class="">
+                                                        【住所】<%= spot.address%>
+                                                        <%# 編集リンク %>
+                                                        <%# <a href="<%=edit_spot_path(spot.id)%>
+                                                        <%# <i class='fa-solid fa-pen-to-square'></i></a> %>
+                                                        <%= link_to spot_path(spot.id),data: { turbo_method: :delete } do %>
+                                                          <i class="fa-solid fa-trash-can" title="スポット削除"></i>
+                                                        <% end %>
+                                                    </div>
+                                            </div>
+                                            <%# <h2 class="fs-4 fw-bold">Fresh new layout</h2> %>
+                                            <%# <p class="mb-0">With Bootstrap 5, we've created a fresh new layout for this template!</p> %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%end%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<style>
+#gmap {
+  height: 60rem;
+  width: 40rem;
+  text-align: center;
+
+}
+</style>
+
+<!-- js部分 -->
+<script>
+    function initMap() {
+
+      //初期表示位置
+      let latlng = new google.maps.LatLng('37.368708', '138.888731');
+      //デザイン
+      let styles = [
+           {
+            stylers: [
+             { "saturation": 0 },
+             { "lightness": 0 }
+            ]
+           }
+          ];
+
+      let map = new google.maps.Map(document.getElementById('gmap'), {
+            zoom: 5.5,
+          styles: styles,
+          center: latlng
+      });
+      let transitLayer = new google.maps.TransitLayer();
+      transitLayer.setMap(map);
+
+//複数マーカー ここから
+      <% @spots.each do |spot|%>
+        ( function() { 
+          let markerLatLng = { lat: <%=spot.latitude%>, lng: <%=spot.longitude%> }; // 緯度経度のデータ作成
+          let marker = new google.maps.Marker({ 
+            position: markerLatLng, 
+            map: map 
+          });
+//マーカーをクリックしたとき、詳細情報を表示
+          let infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: "<a href='<%= spot_url(spot.id) %>' target='_blank'><%= spot.spot_name %><br><%= spot.information %></a>"
+          }); //ここで詳細ページへのリンクを表示させる
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+
+       })();
+      <% end %>
+      //複数マーカー ここまで  
+  }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_MAPS_API_KEY']%>&callback=initMap" async defer></script>
+
+
