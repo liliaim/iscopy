@@ -37,7 +37,7 @@ end
 #   @prefecture = Prefecture.find(@spot.prefecture_id)
 
 # end
-# def update #editでマーカー位置を変更したときに住所に反映されない。修正要。
+# def update # TODO  :editでマーカー位置を変更したときに住所に反映されない。修正要。
 #   # binding.pry
 #   if @spot.update(spot_params)
    
