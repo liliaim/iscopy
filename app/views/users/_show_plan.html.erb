@@ -4,7 +4,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table class="table-with-pagination plan border-secodary">
+                                <table class="table-with-pagination plan border-secodary my-3">
                                     <thead>
                                         <tr>
                                             <th>都道府県</th>
@@ -42,7 +42,7 @@
                                     </tbody>
 
                                 </table>
-                                                                <div class="pagination plan"><%= paginate @plans_page, remote: true, param_name: 'plan_page' %></div>
+                                <div class="pagination plan"><%= paginate @plans_page, remote: true, param_name: 'plan_page', theme: 'bootstrap-5'%></div>
 
                                 <div class="add_plan">
                                    <a href="<%=new_plan_path%>">

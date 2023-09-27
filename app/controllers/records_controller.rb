@@ -3,7 +3,7 @@ class RecordsController < ApplicationController
   before_action :set_record, only: [:edit,  :update]
 
   def index
-    @records = Record.order("created_at DESC") #変更要。start_dateにしたいけどそれだとstart_dateをnull:falseにしなければ
+    @records = Record.order("created_at DESC") # TODO    :変更要。start_dateにしたいけどそれだとstart_dateをnull:falseにしなければ
 
   end
   def new

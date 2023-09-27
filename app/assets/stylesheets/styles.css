@@ -10863,3 +10863,6 @@ textarea.form-control-lg {
   --bs-bg-opacity: 5;
   background-color: rgba(var(--bs-iscopy-c), var(--bs-bg-opacity)) !important;
 }
+.pagination{
+  justify-content: center;
+}

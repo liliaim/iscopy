@@ -2,6 +2,10 @@ class SpotsController < ApplicationController
   before_action :move_to_index, except: [:index]
   before_action :set_spot, only: [:show, :edit, :update]
 
+  def index
+    @spots = Spot.where(user_id: current_user.id).includes([:image_attachment])
+
+  end
 def new
   @spot = Spot.new
   @prefecture = Prefecture.find(params[:format])
@@ -33,7 +37,7 @@ end
 #   @prefecture = Prefecture.find(@spot.prefecture_id)
 
 # end
-# def update #editでマーカー位置を変更したときに住所に反映されない。修正要。
+# def update # TODO  :editでマーカー位置を変更したときに住所に反映されない。修正要。
 #   # binding.pry
 #   if @spot.update(spot_params)
    

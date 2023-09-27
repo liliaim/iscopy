@@ -4,7 +4,7 @@
                           </div>
                       </div>
                       <div class="card-body">
-                        <table class="table-with-pagination record border-secondary">
+                        <table class="table-with-pagination record border-secondary my-3">
                           <thead>
                                   <tr>
                                       <th>都道府県</th>
@@ -44,7 +44,7 @@
                               </tbody>
 
                             </table>
-                                                            <div class="pagination record"><%= paginate @records_page, remote: true, param_name: 'record_page' %></div>
+                            <div class="pagination record"><%= paginate @records_page, remote: true, param_name: 'record_page',theme: 'bootstrap-5' %></div>
 
                           <div class="add_record">
                               <a href="<%=new_record_path%>">
